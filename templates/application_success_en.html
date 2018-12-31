@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class="container">
+    <h1>Application Successfull</h1>
+
+    <p>Thank you, your application has been received.</p>
+
+    <p>Please note the following membership fee must be paid to complate your application.</p>
+
+    {% include '_payment_details_en.html' %}
+
+  </div>
+{% endblock content %}

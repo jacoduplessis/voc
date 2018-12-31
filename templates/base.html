@@ -1,0 +1,33 @@
+{% load static %}
+
+<!doctype html>
+<html lang="{% block lang %}af{% endblock %}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="{% block meta_description %}Aanlyn tuiste van die Stigting VOC{% endblock %}">
+  <title>Stigting VOC</title>
+
+  <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+
+  <style>
+    .asteriskField {
+      display: none;
+    }
+  </style>
+
+
+</head>
+<body>
+
+{% include '_nav.html' %}
+
+<main role="main">
+  {% block content %}{% endblock %}
+</main>
+
+{% include '_footer.html' %}
+
+
+</body>
+</html>

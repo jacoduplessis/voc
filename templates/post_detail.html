@@ -7,8 +7,25 @@
     <h1>{{ post.title }}</h1>
 
     <hr>
-    <div>
+    <div style="max-width: 600px;">
+
+      <p><strong>{{ post.date_published|date:"Y-m-d" }}</strong>
+      {% if post.author %} | {{ post.author }}{% endif %}</p>
       {{ post.content|safe }}
+
+
+      {% if post.images.all %}
+
+        {% for image in post.images.all %}
+          <figure>
+            <img src="{{ image.image.thumbnail.600x600 }}" class="img-fluid" alt="{{ image.caption }}">
+            {% if image.caption %}
+              <figcaption class="text-center">{{ image.caption }}</figcaption>
+            {% endif %}
+          </figure>
+
+        {% endfor %}
+      {% endif %}
     </div>
   </div>
 

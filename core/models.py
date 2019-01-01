@@ -41,6 +41,7 @@ class Post(models.Model):
     slug = models.SlugField()
     author = models.CharField(max_length=200, blank=True)
     date_published = models.DateField()
+    extract = models.TextField(max_length=500, blank=True)
     content = RichTextField(blank=True)
 
     def __str__(self):

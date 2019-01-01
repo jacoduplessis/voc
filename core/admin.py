@@ -17,7 +17,6 @@ class PostAdmin(admin.ModelAdmin):
     inlines = [
         PostImageInline
     ]
-    list_editable = ['slug']
 
 
 class CommitteeMemberAdmin(admin.ModelAdmin):

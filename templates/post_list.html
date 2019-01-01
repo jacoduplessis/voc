@@ -3,13 +3,25 @@
 
 {% block content %}
 
-<div class="container py-4">
-
-  {% for post in posts %}
-
-    <h3><a href="{% url 'post_detail' post.slug %}" class="text-dark">{{ post.title }}</a></h3>
-
-  {% endfor %}
-</div>
+  <div class="container py-4">
+    <div class="row">
+      {% for post in posts %}
+        <div class="col-lg-4 col-md-6 col-sm-12 my-3">
+          <div class="card">
+            {% if post.images.first %}
+              <img src="{{ post.images.first.image.crop.500x300 }}" class="card-img-top"
+                   alt="{{ post.images.first.caption }}">
+            {% endif %}
+            <div class="card-body">
+              <h3 class="card-title"><a href="{% url 'post_detail' post.slug %}" class="text-dark">{{ post.title }}</a></h3>
+              <p class="card-text"><strong>{{ post.date_published|date:'Y-m-d' }}</strong></p>
+              <p class="card-text">{{ post.extract }}</p>
+              <p class="card-text"><a href="{% url 'post_detail' post.slug %}">Read More</a></p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
 
 {% endblock content %}

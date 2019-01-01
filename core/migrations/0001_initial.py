@@ -34,6 +34,7 @@ class Migration(migrations.Migration):
                 ('time_created', models.DateTimeField(auto_now_add=True)),
                 ('time_modified', models.DateTimeField(auto_now=True)),
                 ('title', models.CharField(max_length=300)),
+                ('slug', models.SlugField()),
                 ('author', models.CharField(blank=True, max_length=200)),
                 ('date_published', models.DateField()),
                 ('content', ckeditor.fields.RichTextField(blank=True)),

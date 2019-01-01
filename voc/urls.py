@@ -15,6 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+
 from core import views
 
 urlpatterns = [
@@ -38,3 +41,6 @@ urlpatterns = [
     path('nl/', views.IndexView.as_view(lang='nl'), name='index_nl'),
     path('', views.IndexView.as_view(lang='af'), name='index_af'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

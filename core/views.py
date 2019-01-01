@@ -1,7 +1,7 @@
 from django.urls import reverse
 from django.views import generic
 
-from .models import Member
+from .models import Member, Research, CommitteeMember, Post
 
 
 class IndexView(generic.TemplateView):
@@ -51,16 +51,38 @@ class ApplicationView(generic.CreateView):
         return reverse(f'application_success_{self.lang}')
 
 
-class CommitteeView(generic.TemplateView):
-
+class CommitteeView(generic.ListView):
+    model = CommitteeMember
+    context_object_name = 'members'
     template_name = 'committee.html'
+    ordering = ['order']
+
 
 class LinksView(generic.TemplateView):
-
     template_name = 'links.html'
+
+
+class ResearchListView(generic.ListView):
+    template_name = 'research_list.html'
+    model = Research
+    context_object_name = 'researches'
+
 
 class ApplicationSuccessView(generic.TemplateView):
     lang = 'en'
 
     def get_template_names(self):
         return [f'application_success_{self.lang}.html']
+
+
+class PostListView(generic.ListView):
+    model = Post
+    template_name = 'post_list.html'
+    context_object_name = 'posts'
+
+
+class PostDetailView(generic.DetailView):
+    model = Post
+    slug_field = 'slug'
+    slug_url_kwarg = 'slug'
+    template_name = 'post_detail.html'

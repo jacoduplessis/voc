@@ -2,27 +2,19 @@
 
 {% block content %}
 
-  <div class="container">
+  <div class="container py-4">
 
-    <h1>Committee 2018</h1>
-
+    <h1>Committee</h1>
     <table class="table">
-      <tr>
-        <td>Prof Leon Hattingh</td>
-        <td>Voorsitter</td>
-        <td>Chairperson</td>
-      </tr>
+      <tbody>
+      {% for member in members %}
+        <tr>
+          <td>{{ member.name }}</td>
+          <td>{{ member.position_af }}</td>
+          <td>{{ member.position_en }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
     </table>
-
-  	Prof Leon Hattingh 	Voorsitter 	  	Chairperson
-  	Dr Helena  Sheffler 	Ondervoorsitter 	  	Deputy Chairperson
-  	Rudolf Rode 	Sekretaris 	  	Secretary
-  	Cala Wessels 	Penningmeester 	  	Treasurer
-  	Dr Dan Sleigh 	Nuusbrief 	  	Newsletter
-  	Con de Wet 	Redakteur 	  	Editor
-  	Piet Westra 	Media en verspreiding 	  	Media and distribution
-  	Dr Nico Walters 	Inlitingbestuur 	  	Information management
-
-
   </div>
 {% endblock content %}

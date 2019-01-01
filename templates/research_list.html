@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class="container py-4">
+
+    <h1>Navorsing en lesings</h1>
+    <h1>Research and lectures by members</h1>
+    <hr>
+
+    <p>Baie van ons lede lewer waardevolle bydraes tot die uitbou van ons kennis van die rol en impak van die VOC in aan
+      die Kaap.
+      Alle lede is welkom om publikasies/lesings hier te lys en beskikbaar te stel om af te laai/lees indien kopiereg
+      dit toelaat.
+      Vir meer inligting lees ons <a href="{% url 'copyright_privacy' %}">kopiereg-beleid</a> in hierdie verband.
+      Artikels verskyn in die taal van publikasie.</p>
+
+    <p>Many of our researchers contribute to the research of the VOC era in the Cape.
+      All members are invited to submit their research (publications, lectures and articles in popular press) here to
+      read/download if it does not contravene the copyright law.
+      For more information please read our <a href="{% url 'copyright_privacy' %}">copyright policy</a>. Articles appear
+      in the language of submission.</p>
+
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Author</th>
+        <th>Title</th>
+        <th>Notes</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for research in researches %}
+        <tr>
+          <td>{{ research.author }}</td>
+          <td><a href="{{ research.link }}" target="_blank">{{ research.title }}</a></td>
+          <td>{{ research.notes }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+{% endblock content %}

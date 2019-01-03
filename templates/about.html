@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+  <div class="container py-4">
+
+    <h1>Stigting VOC | VOC Foundation</h1>
+    <hr>
+
+    <h3>Komitee | Committee</h3>
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Naam</th>
+        <th>Posisie</th>
+        <th>Position</th>
+        <th>Epos</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for member in committee_members %}
+        <tr>
+          <td>{{ member.name }}</td>
+          <td>{{ member.position_af }}</td>
+          <td>{{ member.position_en }}</td>
+          <td>{{ member.email_address }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+    <h3>Grondwet | Constitution</h3>
+
+    <p>Ons grondwet kan <a href="/documents/constitution.pdf" target="_blank">hier</a> afgelaai word.</p>
+    <p>Our constitution is available <a href="/documents/constitution.pdf" target="_blank">here</a>.</p>
+
+    <h3>Lidmaatskap | Membership</h3>
+
+    <p>Ons verwelkom enigiemand wat belangstel om 'n lid te word. <a href="{% url 'application' %}">Sluit aan.</a></p>
+    <p>We welcome all interested in becoming a member. <a href="{% url 'application' %}">Apply now.</a></p>
+
+    <h3>Logo</h3>
+
+    <p>Meer inligting oor die VOC logo is <a href="{% url 'logo' %}">hier</a> beskikbaar.</p>
+    <p>More information about the VOC logo is available <a href="{% url 'logo' %}">here</a>.</p>
+
+  </div>
+
+
+
+
+{% endblock content %}

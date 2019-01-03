@@ -6,21 +6,23 @@
 
   <div class="container py-4">
 
-    <h1>Membership Application</h1>
+    <h1>Aansoek om Lidmaatskap | Membership Application</h1>
     <hr>
+    <p>Voltooi asb. die onderstaande vorm om aansoek te doen om lidmaatskap.</p>
     <p>Please complete the following form to apply for membership.</p>
-
+    <p></p>
     <div class="row">
       <div class="col-md-6 col-12">
         <form method="post" action="">
           {% csrf_token %}
           {{ form|crispy }}
-          <input type="submit" value="Submit" class="btn btn-primary">
+          <input type="submit" value="Stuur | Submit" class="btn btn-primary">
         </form>
       </div>
       <div class="col-md-6 col-12">
-        <p>Please note that the following payment should accompany your application:</p>
-        {% include '_payment_details_en.html' %}
+        <p>Let daarop dat ledegeldbetaling deel van die aansoek uitmaak:</p>
+         <p>Please note that the following payment should accompany your application:</p>
+        {% include '_payment_details_af.html' %}
       </div>
     </div>
 

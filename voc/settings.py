@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'ckeditor',
     'versatileimagefield',
+    'django_countries',
 
     'core',
 ]

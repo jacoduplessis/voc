@@ -1,21 +1,28 @@
 {% extends 'base.html' %}
 
+{% load static %}
 
 {% block content %}
 
+  <div class="container py-4">
 
-  <div class="container">
+    <h1>VOC logo</h1>
+    <hr>
+
+    <p class="text-center">
+      <img class="img-fluid" src="{% static 'img/voc_logo_web.jpg' %}" alt="VOC logo">
+    </p>
 
     <p>The VOC logo and signage is the exclusive ownership of the VOC society within the boundaries of the republic of
       South Africa.</p>
 
     <p>No person or organisation may use this logo on products, marketing or for whatever reason within the boundaries
       of the republic of South Africa without written permission from the society.<br>
-      An annual licensing fee (or grant) of R 25 000 will apply if the logo is used for commercial purposes subject to
+      An annual licensing fee (or grant) of R25 000 will apply if the logo is used for commercial purposes subject to
       approval by the VOC management. Discounts can be negotiated for special cases. This fee may be tax deductible.
       Please <a href="{% url 'contact_en' %}">contact us</a> for more information.</p>
 
-    <p>The license fee will be amended annually subject to approval of members at the annual AGM
+    <p>The license fee will be amended annually subject to approval of members at the annual general meeting.
       A free license will be awarded for educational, research and community projects subject to approval by VOC
       management.</p>
 

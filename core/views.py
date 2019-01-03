@@ -1,7 +1,7 @@
 from django.urls import reverse
 from django.views import generic
 
-from .models import Member, Research, CommitteeMember, Post
+from .models import Member, Research, CommitteeMember, Post, Project
 
 
 class IndexView(generic.TemplateView):
@@ -12,10 +12,7 @@ class IndexView(generic.TemplateView):
 
 
 class ContactView(generic.TemplateView):
-    lang = 'en'
-
-    def get_template_names(self):
-        return [f'contact_{self.lang}.html']
+    template_name = 'contact.html'
 
 
 class LogoView(generic.TemplateView):
@@ -43,12 +40,10 @@ class ApplicationView(generic.CreateView):
         'contact_number',
         'email_address',
     ]
-
-    def get_template_names(self):
-        return [f'application_{self.lang}.html']
+    template_name = 'application.html'
 
     def get_success_url(self):
-        return reverse(f'application_success_{self.lang}')
+        return reverse(f'application_success')
 
 
 class CommitteeView(generic.ListView):
@@ -69,10 +64,19 @@ class ResearchListView(generic.ListView):
 
 
 class ApplicationSuccessView(generic.TemplateView):
-    lang = 'en'
+    template_name = 'application_success.html'
 
-    def get_template_names(self):
-        return [f'application_success_{self.lang}.html']
+
+
+class AboutView(generic.TemplateView):
+    template_name = 'about.html'
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+
+        ctx['committee_members'] = CommitteeMember.objects.all().order_by('order')
+
+        return ctx
 
 
 class PostListView(generic.ListView):
@@ -86,3 +90,16 @@ class PostDetailView(generic.DetailView):
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
     template_name = 'post_detail.html'
+
+
+class ProjectListView(generic.ListView):
+    model = Project
+    template_name = 'project_list.html'
+    context_object_name = 'projects'
+
+
+class ProjectDetailView(generic.DetailView):
+    model = Project
+    slug_field = 'slug'
+    slug_url_kwarg = 'slug'
+    template_name = 'project_detail.html'

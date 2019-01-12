@@ -25,6 +25,7 @@ urlpatterns = [
     path('apply/', views.ApplicationView.as_view(), name='application'),
     path('application_success/', views.ApplicationSuccessView.as_view(), name='application_success'),
     path('about/', views.AboutView.as_view(), name='about'),
+    path('membership/', views.MembershipView.as_view(), name='membership'),
     path('contact/', views.ContactView.as_view(), name='contact'),
     path('logo/', views.LogoView.as_view(), name='logo'),
     path('copyright/', views.CopyrightPrivacyView.as_view(), name='copyright_privacy'),

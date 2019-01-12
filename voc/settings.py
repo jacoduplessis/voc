@@ -22,9 +22,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', '9mk@wi_@j0!-pbej&^0gou4uwk^jzdy=-o0^jz=j#$)53)#c7u')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DJANGO_DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+] if DEBUG else [
+    '.voc-kaap.org',
+]
 
 # Application definition
 

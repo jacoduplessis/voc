@@ -1,8 +1,41 @@
-{% extends 'base.html' %}
+{% extends '_index.html' %}
 
 {% block lang %}nl{% endblock %}
-{% block meta_description %}{% endblock %}
+{% block meta_description %}Online home of the VOC Foundation{% endblock %}
+{% block title %}Stichting VOC{% endblock %}
 
-{% block content %}
+{% block banner_heading %}Welkom op de Zuid-Afrikaanse Stichting VOC site{% endblock %}
+{% block banner_caption %}De Noord-Nieuwland in Tafelbaai, 1762.{% endblock %}
 
-{% endblock content %}
+{% block who_we_are_heading %}Wie zijn wij?{% endblock %}
+
+{% block who_we_are_content %}
+
+  <p>De Stichting VOC is de geregistreerde eigenaar van het <a href="{% url 'logo' %}">historische VOC logo</a> in
+    Zuid-Afrika.</p>
+  <p>Onze Neuwsbrief <a href="{% url 'archives' %}">Generale Missive</a> met plaatselijk en overzees VOC nieuws
+    verschijnt per kwartaal.</p>
+  <p>De Stichting nodigt het publiek uit voor <a href="{% url 'event_list' %}">bezoeken aan VOC lokaties, lezingen en
+    andere activiteiten</a>.
+  <p>Bijwoning van vergaderingen en gebruik van de bibbliotheek van de Stichting is gratis voor de leden.</p>
+  <p>Een ieder die in de VOC belangstelt is welkom om zich bij de Stichting <a href="{% url 'application' %}">aan te
+    sluiten</a>.</p>
+
+{% endblock %}
+
+{% block aims_heading %}Doelstellingen{% endblock %}
+
+{% block aims_content %}
+  <p>Bevordering van de belangstelling voor het VOC tijdperk in de Kaap (1652-1795).</p>
+  <p>Bewaring van historische voorwerpen, zoals gebouwen, scheepswrakken, porselein, documenten etc.</p>
+  <p>Onderzoek naar de VOC zowel lokaal als internationaal.</p>
+  <p>Bestudering van de Kaapse inheemse bevolking, de Koina.</p>
+  <p>Bevordering van VOC cultuurtoerisme.</p>
+{% endblock %}
+
+{% block since_heading %}Ontstaan{% endblock %}
+
+{% block since_content %}
+  <p>De stichting is opgericht in 1995.</p>
+  <p>Lees meer over het <a href="{% url 'logo' %}">logo</a>.</p>
+{% endblock %}

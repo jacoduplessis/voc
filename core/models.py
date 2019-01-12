@@ -118,7 +118,9 @@ class CommitteeMember(models.Model):
     name = models.CharField(max_length=200)
     position_af = models.CharField(max_length=300)
     position_en = models.CharField(max_length=300)
-    email_address = models.EmailField(blank=True)
+    email_address_private = models.EmailField(blank=True)
+    email_address_public = models.EmailField(blank=True)
+    active = models.BooleanField(default=True)
     order = models.PositiveIntegerField(default=99)
 
     class Meta:

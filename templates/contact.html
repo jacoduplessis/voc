@@ -4,14 +4,16 @@
 {% block content %}
 
   <div class="container py-4">
-    <h1>Kontak / Contact</h1>
+    <h1>Kontak | Contact</h1>
     <hr>
 
-    <p>Rig algemene navrae vie epos aan <a href="mailto:info@voc.org.za">info@voc.org.za</a>.</p>
-    <p>For general enquiries, please send an email to <a href="mailto:info@voc.org.za">info@voc.org.za</a>.</p>
+    <p>Rig algemene navrae via epos aan <a href="mailto:info@voc-kaap.org">info@voc.org.za</a>.
+      Kontakbesonderhede van komiteelede is <a href="{% url 'about' %}">hier</a> beskikbaar.</p>
 
-    <p>Kontakbesonderhede van komiteelede is beskikbaar <a href="{% url 'about' %}">hier</a>.</p>
-    <p>Contact details of committee members are available <a href="{% url 'about' %}">here</a>.</p>
+    <p>For general enquiries, please send an email to <a href="mailto:info@voc-kaap.org">info@voc.org.za</a>.
+      Contact details of committee members are available <a href="{% url 'about' %}">here</a>.</p>
+
+    {% include '_logo_large.html' %}
 
   </div>
 

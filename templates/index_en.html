@@ -1,8 +1,37 @@
-{% extends 'base.html' %}
+{% extends '_index.html' %}
 
 {% block lang %}en{% endblock %}
 {% block meta_description %}Online home of the VOC Foundation{% endblock %}
+{% block title %}VOC Foundation{% endblock %}
 
-{% block content %}
+{% block banner_heading %}Welcome to the South African VOC Foundation{% endblock %}
+{% block banner_caption %}The Noord-Nieuwland in Table Bay, 1762.{% endblock %}
 
-{% endblock content %}
+{% block who_we_are_heading %}Who Are We?{% endblock %}
+
+{% block who_we_are_content %}
+  <p>The VOC Foundation is the registered owner of the <a href="{% url 'logo' %}">historical VOC logo</a> in South Africa.</p>
+  <p>Our newsletter <a href="{% url 'archives' %}">Generale Missive</a> with local and foreign VOC news appears quarterly.</p>
+  <p>The Foundation invites the public on <a href="{% url 'event_list' %}">visits to places of VOC interest, lectures and other activities</a>.</p>
+  <p>Free admission to ordinary meetings and use of the Foundation’s library to members.</p>
+  <p>Everyone interested in the VOC period is welcome to <a href="{% url 'application' %}">become a member</a>.</p>
+{% endblock %}
+
+{% block aims_heading %}Our Aims{% endblock %}
+
+{% block aims_content %}
+  <p>Cultivate interest in the VOC period at the Cape (1652-1795).</p>
+  <p>Promote conservation of artefacts, e.g. buildings, wrecks, documents and porcelain from the period</p>
+  <p>Conduct research about the VOC, locally and overseas.</p>
+  <p>Study the indigenous Cape people, the Koina.</p>
+  <p>Promote VOC cultural tourism.</p>
+{% endblock %}
+
+{% block news_heading %}News and Events{% endblock %}
+
+{% block since_heading %}History{% endblock %}
+
+{% block since_content %}
+  <p>The VOC Foundation was founded in 1995.</p>
+  <p>Read more about the <a href="{% url 'logo' %}">logo</a>.</p>
+{% endblock %}

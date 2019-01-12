@@ -1,31 +1,13 @@
 <header>
 
-  <nav class="navbar navbar-expand-md navbar-light bg-light">
-    <a class="navbar-brand" href="/">Stigting VOC</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-      <ul class="navbar-nav mr-auto">
-
-        <li class="nav-item">
-          <a class="nav-link active" href="{% url 'about' %}">Oor Ons | About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="{% url 'post_list' %}">Nuus | Nuus</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="{% url 'archives' %}">Argiewe | Archives</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="{% url 'project_list' %}">Projekte | Projects</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="{% url 'contact' %}">Kontak | Contact</a>
-        </li>
-      </ul>
+  <nav class="d-flex flex-column flex-md-row align-items-center px-2 pt-3 pb-1 pb-md-3 bg-light">
+    <a class="text-dark font-weight-bold mx-3 mb-0 h5" href="/" id="menu-home">Stigting VOC</a>
+    <div class="my-md-0 my-2">
+      <a class="text-dark mx-2" href="{% url 'about' %}" id="menu-about">Oor Ons</a>
+      <a class="text-dark mx-2" href="{% url 'post_list' %}" id="menu-news">Nuus</a>
+      <a class="text-dark mx-2" href="{% url 'archives' %}" id="menu-archives">Argiewe</a>
+      <a class="text-dark mx-2" href="{% url 'project_list' %}" id="menu-projects">Projekte</a>
+      <a class="text-dark mx-2" href="{% url 'contact' %}" id="menu-contact">Kontak</a>
     </div>
   </nav>
 
@@ -34,3 +16,51 @@
   <div style="height: 5px; width: 100%; background-color: #21468B "></div>
 
 </header>
+
+<script>
+  (function() {
+     const lang = document.querySelector('html').getAttribute('lang') || 'af'
+
+     const translations = {
+       home: {
+         af: 'Stigting VOC',
+         en: 'VOC Foundation',
+         nl: 'Stichting VOC',
+       },
+       about: {
+         af: 'Oor Ons',
+         en: 'About',
+         nl: 'Over Ons',
+       },
+       news: {
+         af: 'Nuus',
+         en: 'News',
+         nl: 'Nieuws',
+       },
+       archives: {
+         af: 'Argiewe',
+         en: 'Archives',
+         nl: 'Archief',
+       },
+       projects: {
+         af: 'Projekte',
+         en: 'Projects',
+         nl: 'Projecten',
+       },
+       contact: {
+         af: 'Kontak',
+         en: 'Contact',
+         nl: 'Kontak',
+       }
+     }
+
+    Object.entries(translations).forEach(function ([key, tx]) {
+      const node = document.querySelector('#menu-'+key)
+      if (!node) return
+      if (!tx.hasOwnProperty(lang)) return
+      node.textContent = tx[lang]
+    })
+
+  })()
+
+</script>

@@ -8,21 +8,20 @@
 
     <h1>Aansoek om Lidmaatskap | Membership Application</h1>
     <hr>
-    <p>Voltooi asb. die onderstaande vorm om aansoek te doen om lidmaatskap.</p>
-    <p>Please complete the following form to apply for membership.</p>
-    <p></p>
-    <div class="row">
+    <p>Voltooi asb. die onderstaande vorm om aansoek te doen om lidmaatskap. Please complete the following form to apply for membership.</p>
+    <div class="row mt-5">
       <div class="col-md-6 col-12">
         <form method="post" action="">
           {% csrf_token %}
           {{ form|crispy }}
-          <input type="submit" value="Stuur | Submit" class="btn btn-primary">
+          <input type="submit" value="Submit" class="btn btn-primary">
         </form>
       </div>
       <div class="col-md-6 col-12">
+        <p><strong>Ledegeld | Membership Fees</strong></p>
         <p>Let daarop dat ledegeldbetaling deel van die aansoek uitmaak:</p>
-         <p>Please note that the following payment should accompany your application:</p>
-        {% include '_payment_details_af.html' %}
+        <p>Please note that the following payment should accompany your application:</p>
+        {% include '_payment_details.html' %}
       </div>
     </div>
 

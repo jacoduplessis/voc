@@ -52,6 +52,10 @@ class CommitteeView(generic.ListView):
     template_name = 'committee.html'
     ordering = ['order']
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(active=True)
+
 
 class LinksView(generic.TemplateView):
     template_name = 'links.html'
@@ -74,10 +78,13 @@ class AboutView(generic.TemplateView):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
 
-        ctx['committee_members'] = CommitteeMember.objects.all().order_by('order')
+        ctx['committee_members'] = CommitteeMember.objects.filter(active=True).order_by('order')
 
         return ctx
 
+
+class MembershipView(generic.TemplateView):
+    template_name = 'membership.html'
 
 class PostListView(generic.ListView):
     model = Post

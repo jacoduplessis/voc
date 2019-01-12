@@ -20,12 +20,24 @@ Website for the VOC Foundation of South Africa, running on Django.
 - medal winners
 - notify other sites of domain change
 
-## Other sites
+## Other sites and societies
 
 - VOC Kamer Antwerpen
-
-
-## Other societies
-
 - Van Riebeeck http://www.vanriebeecksociety.co.za
 - Van der Stel http://www.simonvdstel.org/
+- SASNEV http://www.sasnev.co.za
+
+## Quick deploy
+
+**local**
+
+rsync -r -zz -h --progress voc templates media core manage.py .env.example requirements.txt <server>:<location>
+
+**server**
+
+python3.6 -m venv venv
+source venv/bin/activate
+pip install -U pip
+pip install -r requirements.txt
+python manage.py collectstatic
+

@@ -1,15 +1,20 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
 
-  <div class="container">
-    <h1>Application Successfull</h1>
+  <div class="container mt-3">
+    <h1>Sukses | Success</h1>
+    <hr>
 
-    <p>Thank you, your application has been received.</p>
+    <p>Dankie, u aansoek is ontvang. Onthou asseblief om u bewys van betaling te stuur na
+      <a href="mailto:sekretaris@voc-kaap.org">sekretaris@voc-kaap.org</a>. Lidmaatskapfooie en bankbesonderhede is <a href="{% url 'membership' %}">hier</a> beskikbaar.</p>
 
-    <p>Please note the following membership fee must be paid to complate your application.</p>
+    <p>Thank you, your application has been received. Please remember to send your proof of payment
+    to <a href="mailto:sekretaris@voc-kaap.org">sekretaris@voc-kaap.org</a>. Membership fees and banking details can be found <a href="{% url 'membership' %}">here</a>.</p>
 
-    {% include '_payment_details_en.html' %}
+    {% include '_logo_large.html' %}
 
   </div>
 {% endblock content %}

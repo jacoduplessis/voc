@@ -86,6 +86,10 @@ class AboutView(generic.TemplateView):
 class MembershipView(generic.TemplateView):
     template_name = 'membership.html'
 
+class MapView(generic.TemplateView):
+
+    template_name = 'map.html'
+
 class PostListView(generic.ListView):
     model = Post
     template_name = 'post_list.html'

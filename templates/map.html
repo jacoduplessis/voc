@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+  <div id="map" style="width: 100%;height: 90vh;"></div>
+
+  <link rel="stylesheet" href="{% static 'leaflet.css' %}">
+  <script src="{% static 'leaflet.js' %}"></script>
+  <script>
+   var map = L.map('map', {
+    center: [-33.9, 18.65],
+    zoom: 10,
+    zoomControl: false,
+    renderer: L.canvas(),
+  })
+
+  var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+  var osmAttrib = 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
+  var tileLayer = new L.TileLayer(osmUrl, {attribution: osmAttrib});
+  var noneLayer = new L.TileLayer('')
+  var layerControl = L.control.layers(
+    {"Tiles": tileLayer, "None": noneLayer}, {}, {collapsed: false}
+  )
+
+  map.addLayer(tileLayer)
+  map.addControl(layerControl)
+
+  </script>
+{% endblock %}

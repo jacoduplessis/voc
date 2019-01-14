@@ -111,3 +111,5 @@ db.sqlite3
 **/static/**/*.pdf
 
 **/static/**/*.jpg
+
+documents_inbox/

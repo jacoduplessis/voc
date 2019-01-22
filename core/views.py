@@ -2,7 +2,11 @@ from django.urls import reverse
 from django.views import generic
 
 from .models import Member, Research, CommitteeMember, Post, Project
+from django.core.mail import send_mail
+from django_countries.fields import Country
+import logging
 
+logger = logging.getLogger(__name__)
 
 class IndexView(generic.TemplateView):
     lang = 'af'
@@ -37,13 +41,41 @@ class ApplicationView(generic.CreateView):
     fields = [
         'title',
         'name',
+        'country',
         'contact_number',
         'email_address',
+        'notes',
     ]
     template_name = 'application.html'
 
     def get_success_url(self):
         return reverse(f'application_success')
+
+    def form_valid(self, form):
+
+        message = ""
+        for key, val in form.cleaned_data.items():
+            message += f"{key}: {val}\n"
+
+        country_code = form.cleaned_data.get('country')
+        if country_code:
+            country = Country(code=country_code)
+            message += f"country_name: {country.name}\n"
+
+        logger.info(f"New member: {message}")
+
+        send_mail(
+            subject="New Membership Application",
+            message=message,
+            from_email="Stigting VOC Website <web@voc-kaap.org>",
+            recipient_list=[
+                'web@voc-kaap.org',
+                'sekretaris@voc-kaap.org',
+            ],
+            fail_silently=True
+        )
+
+        return super().form_valid(form)
 
 
 class CommitteeView(generic.ListView):
@@ -71,7 +103,6 @@ class ApplicationSuccessView(generic.TemplateView):
     template_name = 'application_success.html'
 
 
-
 class AboutView(generic.TemplateView):
     template_name = 'about.html'
 
@@ -86,9 +117,10 @@ class AboutView(generic.TemplateView):
 class MembershipView(generic.TemplateView):
     template_name = 'membership.html'
 
-class MapView(generic.TemplateView):
 
+class MapView(generic.TemplateView):
     template_name = 'map.html'
+
 
 class PostListView(generic.ListView):
     model = Post

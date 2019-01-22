@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'versatileimagefield',
     'django_countries',
-
+    'anymail',
     'core',
 ]
 
@@ -162,3 +162,18 @@ LOGGING = {
 SITE_ID = 1
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+ADMINS = [
+    ('Jaco du Plessis', 'web@voc-kaap.org'),
+]
+
+ANYMAIL = {
+    # (exact settings here depend on your ESP...)
+    "SENDGRID_API_KEY": os.getenv("SENDGRID_API_KEY"),
+}
+if not DEBUG:
+    EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+DEFAULT_FROM_EMAIL = "Stigting VOC <web@voc-kaap.org>"  # if you don't already have this in settings

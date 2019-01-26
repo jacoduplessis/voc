@@ -4,12 +4,14 @@
 
 
   <div class="container py-4">
-  <h1>Projekte | Projects</h1>
-  <hr>
-
-  <p>Eersdaags beskikbaar. Coming soon.</p>
-
-  {% include '_logo_large.html' %}
+    <h1>Projekte | Projects</h1>
+    <hr>
+    {% for project in projects %}
+      <h3><a href="{% url 'project_detail' project.slug %}" class="text-dark">{{ project.title }}</a></h3>
+      <p><strong>{{ project.timeline }}</strong></p>
+      <p>{{ project.short_description }}</p>
+      <p><a href="{% url 'project_detail' project.slug %}" class="btn btn-primary">Lees meer</a></p>
+    {% endfor %}
 
   </div>
 {% endblock %}

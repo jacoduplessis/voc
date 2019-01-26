@@ -133,9 +133,13 @@ class CommitteeMember(models.Model):
 
 
 class Project(models.Model):
-
     time_created = models.DateTimeField(auto_now_add=True)
     time_modified = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=300)
     slug = models.SlugField()
+    timeline = models.CharField(max_length=300, blank=True)
+    short_description = models.CharField(max_length=500, blank=True)
     content = RichTextField(blank=True)
+
+    def __str__(self):
+        return self.title

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Member, Post, CommitteeMember, Research, PostImage, Document
+from .models import Member, Post, CommitteeMember, Research, PostImage, Document, Project
 from django.utils.translation import ugettext_lazy
 
 
@@ -27,11 +27,16 @@ class PostAdmin(admin.ModelAdmin):
 
 
 class CommitteeMemberAdmin(admin.ModelAdmin):
-    list_display = ['name', 'position_af', 'position_en', 'email_address_private', 'email_address_public', 'active', 'order']
+    list_display = ['name', 'position_af', 'position_en', 'email_address_private', 'email_address_public', 'active',
+                    'order']
 
 
 class ResearchAdmin(admin.ModelAdmin):
     list_display = ['author', 'title', 'link']
+
+
+class ProjectAdmin(admin.ModelAdmin):
+    pass
 
 
 admin.site.register(Member, MemberAdmin)
@@ -39,6 +44,7 @@ admin.site.register(Post, PostAdmin)
 admin.site.register(Research, ResearchAdmin)
 admin.site.register(CommitteeMember, CommitteeMemberAdmin)
 admin.site.register(Document, DocumentAdmin)
+admin.site.register(Project, ProjectAdmin)
 
 admin.site.site_title = ugettext_lazy('Stigting VOC Admin')
 admin.site.site_header = ugettext_lazy('Stigting VOC Administration')

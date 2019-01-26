@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+  <div class="container py-4">
+    <h1>Medaljewenners | Medal Winners</h1>
+    <hr>
+    {% for medal in medals %}
+      <div class="mt-4">
+        <h3>{{ medal.name }}</h3>
+        <p><strong>{{ medal.date|date:"Y-m-d" }}</strong></p>
+        <p>{{ medal.short_description }}</p>
+      </div>
+    {% endfor %}
+
+  </div>
+{% endblock %}

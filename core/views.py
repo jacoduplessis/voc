@@ -1,12 +1,13 @@
 from django.urls import reverse
 from django.views import generic
 
-from .models import Member, Research, CommitteeMember, Post, Project
+from .models import Member, Research, CommitteeMember, Post, Project, Medal, Tour, Speaker
 from django.core.mail import send_mail
 from django_countries.fields import Country
 import logging
 
 logger = logging.getLogger(__name__)
+
 
 class IndexView(generic.TemplateView):
     lang = 'af'
@@ -146,3 +147,21 @@ class ProjectDetailView(generic.DetailView):
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
     template_name = 'project_detail.html'
+
+
+class MedalListView(generic.ListView):
+    model = Medal
+    template_name = 'medal_list.html'
+    context_object_name = 'medals'
+
+
+class SpeakerListView(generic.ListView):
+    model = Speaker
+    template_name = 'speaker_list.html'
+    context_object_name = 'speakers'
+
+
+class TourListView(generic.ListView):
+    model = Tour
+    template_name = 'tour_list.html'
+    context_object_name = 'tours'

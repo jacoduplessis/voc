@@ -143,3 +143,45 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        ordering = ['-timeline']
+
+
+class Tour(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.SlugField()
+    date = models.DateField(blank=True)
+    content = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['-date']
+
+
+class Speaker(models.Model):
+    name = models.CharField(max_length=300)
+    slug = models.SlugField()
+    title = models.CharField(max_length=300)
+    place = models.CharField(max_length=300, blank=True)
+    date = models.DateField(blank=True)
+    content = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name + ' ' + self.title
+
+    class Meta:
+        ordering = ['-date']
+
+
+class Medal(models.Model):
+    name = models.CharField(max_length=300)
+    slug = models.SlugField()
+    date = models.DateField(blank=True)
+    short_description = models.CharField(max_length=300, blank=True)
+    content = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+  <div class="container py-4">
+    <h1>Toere | Tours</h1>
+    <hr>
+    {% for tour in tours %}
+      <div class="mt-4">
+        <h3>{{ tour.title }}</h3>
+        <p><strong>{{ tour.date|date:"Y-m-d" }}</strong></p>
+        <div>{{ tour.content|linebreaksbr }}</div>
+      </div>
+    {% endfor %}
+
+  </div>
+{% endblock %}

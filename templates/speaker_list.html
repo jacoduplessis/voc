@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+  <div class="container py-4">
+    <h1>Sprekers | Speakers</h1>
+    <hr>
+    {% for speaker in speakers %}
+      <div class="mt-4">
+        <h3>{{ speaker.name }} &mdash; {{ speaker.title }}</h3>
+        <p><strong>{{ speaker.date|date:"Y-m-d" }} | {{ speaker.place }}</strong></p>
+      </div>
+    {% endfor %}
+
+  </div>
+{% endblock %}

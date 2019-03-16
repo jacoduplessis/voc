@@ -2,7 +2,9 @@ from django.db import models
 from ckeditor.fields import RichTextField
 from versatileimagefield.fields import VersatileImageField
 from django_countries.fields import CountryField
-
+from django.contrib.postgres.fields import ArrayField
+from django.core.exceptions import ValidationError
+from django.utils.functional import cached_property
 
 class Document(models.Model):
     time_created = models.DateTimeField(auto_now_add=True)
@@ -144,6 +146,10 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
+    @cached_property
+    def images(self):
+        return Image.objects.filter(tags_contains=[f'project_{self.slug}'])
+
     class Meta:
         ordering = ['-timeline']
 
@@ -157,8 +163,14 @@ class Tour(models.Model):
     def __str__(self):
         return self.title
 
+    @cached_property
+    def images(self):
+        return Image.objects.filter(tags_contains=[f'tour_{self.slug}'])
+
     class Meta:
         ordering = ['-date']
+
+
 
 
 class Speaker(models.Model):
@@ -185,3 +197,37 @@ class Medal(models.Model):
 
     def __str__(self):
         return self.name
+
+    @cached_property
+    def images(self):
+        return Image.objects.filter(tags_contains=[f'medal_{self.slug}'])
+
+
+def validate_tag(val: str):
+
+    if val.lower() != val:
+        raise ValidationError("Only lowercase letters allowed")
+    if ' ' in val:
+        raise ValidationError("No spaces allowed")
+
+
+class Image(models.Model):
+    image = VersatileImageField(
+        verbose_name='Image', upload_to='images/', width_field='width',
+        height_field='height')
+    caption = models.TextField(blank=True)
+    height = models.PositiveIntegerField(
+        'Image Height',
+        blank=True,
+        null=True
+    )
+    width = models.PositiveIntegerField(
+        'Image Width',
+        blank=True,
+        null=True
+    )
+    tags = ArrayField(models.CharField(max_length=100, validators=[validate_tag]), blank=True, db_index=True, help_text='Comma-seperated list of tags, using only lowercase letters without whitespace')
+    time_created = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    def __str__(self):
+        return str(self.image)

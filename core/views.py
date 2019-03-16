@@ -1,10 +1,13 @@
 from django.urls import reverse
 from django.views import generic
+from django.shortcuts import render
+from django.http.response import JsonResponse
 
-from .models import Member, Research, CommitteeMember, Post, Project, Medal, Tour, Speaker
+from .models import Member, Research, CommitteeMember, Post, Project, Medal, Tour, Speaker, Image
 from django.core.mail import send_mail
 from django_countries.fields import Country
 import logging
+from .forms import ImageForm
 
 logger = logging.getLogger(__name__)
 
@@ -153,6 +156,14 @@ class MedalListView(generic.ListView):
     model = Medal
     template_name = 'medal_list.html'
     context_object_name = 'medals'
+    ordering = ['date']
+
+
+class MedalDetailView(generic.DetailView):
+    model = Medal
+    template_name = 'medal_detail.html'
+    slug_field = 'slug'
+    slug_url_kwarg = 'slug'
 
 
 class SpeakerListView(generic.ListView):
@@ -165,3 +176,59 @@ class TourListView(generic.ListView):
     model = Tour
     template_name = 'tour_list.html'
     context_object_name = 'tours'
+
+
+class TourDetailView(generic.DetailView):
+    model = Tour
+    template_name = 'tour_detail.html'
+
+
+class JinjaTest(generic.TemplateView):
+    template_name = 'core/test.html'
+    template_engine = 'jinja'
+
+    def get_context_data(self, **kwargs):
+        from .trello import TBoard
+        from pathlib import Path
+        import json
+
+        context = super().get_context_data(**kwargs)
+
+        data_str = Path('/home/jaco/Projects/voc/DPZfm02g.json').read_text()
+        data = json.loads(data_str)
+        context['board'] = TBoard(data=data)
+        return context
+
+
+class GalleryView(generic.TemplateView):
+    template_name = 'gallery.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        slug = self.kwargs.get('slug')
+
+        name = ' '.join([s.capitalize() for s in slug.split('_')])
+
+        context['name'] = name
+        context['images'] = Image.objects.filter(tags__contains=[slug])
+        return context
+
+
+class BulkImageAdminView(generic.View):
+
+    def get(self, request):
+        return render(request, 'admin/image_bulk.html')
+
+    def post(self, request):
+        form = ImageForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            obj = form.save()
+            return JsonResponse({'ok': True, 'id': obj.id})
+
+        else:
+            return JsonResponse({
+                'ok': False,
+                'errors': form.errors
+            })

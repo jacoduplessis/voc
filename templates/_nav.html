@@ -5,8 +5,9 @@
     <div class="my-md-0 my-2 text-md-center">
       <a class="text-dark mx-2" href="{% url 'about' %}" id="menu-about">Oor Ons</a>
       <a class="text-dark mx-2" href="{% url 'post_list' %}" id="menu-news">Nuus</a>
-      <a class="text-dark mx-2" href="{% url 'archives' %}" id="menu-archives">Argiewe</a>
+      <a class="text-dark mx-2" href="{% url 'archives' %}" id="menu-archives">Nuusbriewe</a>
       <a class="text-dark mx-2" href="{% url 'project_list' %}" id="menu-projects">Projekte</a>
+      <a class="text-dark mx-2" href="{% url 'medal_list' %}" id="menu-medals">Medals</a>
       <a class="text-dark mx-2" href="{% url 'contact' %}" id="menu-contact">Kontak</a>
     </div>
   </nav>
@@ -38,9 +39,9 @@
          nl: 'Nieuws',
        },
        archives: {
-         af: 'Argiewe',
-         en: 'Archives',
-         nl: 'Archief',
+         af: 'Nuusbriewe',
+         en: 'Newsletters',
+         nl: 'Nieuwsbrieven',
        },
        projects: {
          af: 'Projekte',
@@ -51,6 +52,11 @@
          af: 'Kontak',
          en: 'Contact',
          nl: 'Kontak',
+       },
+       medals: {
+         af: 'Medaljes',
+         en: 'Medals',
+         nl: 'Medailles'
        }
      }
 

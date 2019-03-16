@@ -27,7 +27,7 @@
   <meta name="theme-color" content="#ffffff">
 
   <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
-
+  <link rel="stylesheet" href="{% static 'baguetteBox.min.css' %}">
   <style>
     .asteriskField {
       display: none;
@@ -46,6 +46,9 @@
 
 {% include '_footer.html' %}
 
+<script src="{% static 'baguetteBox.min.js' %}"></script>
+
+{% block extra_script %}{% endblock %}
 
 </body>
 </html>

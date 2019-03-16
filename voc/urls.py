@@ -41,9 +41,12 @@ urlpatterns = [
     path('speakers/', views.SpeakerListView.as_view(), name='speaker_list'),
     path('tours/', views.TourListView.as_view(), name='tour_list'),
     path('medals/', views.MedalListView.as_view(), name='medal_list'),
+    path('medals/<slug>/', views.MedalDetailView.as_view(), name='medal_detail'),
     path('map/', views.MapView.as_view(), name='map'),
     path('en/', views.IndexView.as_view(lang='en'), name='index_en'),
     path('nl/', views.IndexView.as_view(lang='nl'), name='index_nl'),
+    path('jinja/', views.JinjaTest.as_view(), name='jinja_test'),
+    path('gallery/<slug>/', views.GalleryView.as_view(), name='gallery'),
     path('', views.IndexView.as_view(lang='af'), name='index_af'),
 ]
 

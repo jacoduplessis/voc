@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -43,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.flatpages',
+
+    'minio_storage',
 
     'crispy_forms',
     'ckeditor',
@@ -81,18 +84,18 @@ TEMPLATES = [
             ],
         },
     },
+    {
+        'BACKEND': 'django.template.backends.jinja2.Jinja2',
+        'APP_DIRS': True,
+        'NAME': 'jinja'
+    }
 ]
 
 WSGI_APPLICATION = 'voc.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': dj_database_url.config(conn_max_age=600, default='postgres://postgres:postgres@localhost/postgres')
 }
 
 # Password validation
@@ -148,9 +151,21 @@ LOGGING = {
         },
     },
     'loggers': {
-        'django': {
+        'django.db': {
             'handlers': ['console'],
             'level': LOG_LEVEL,
+        },
+        'django.request': {
+            'handlers': ['console'],
+            'level': LOG_LEVEL,
+        },
+        'django.server': {
+            'handlers': ['console'],
+            'level': LOG_LEVEL,
+        },
+        'django.template': {
+            'handlers': ['console'],
+            'level': 'INFO',
         },
         'voc': {
             'handlers': ['console'],
@@ -176,4 +191,15 @@ if not DEBUG:
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-DEFAULT_FROM_EMAIL = "Stigting VOC <web@voc-kaap.org>"  # if you don't already have this in settings
+DEFAULT_FROM_EMAIL = "Stigting VOC <web@voc-kaap.org>"
+
+DEFAULT_FILE_STORAGE = 'minio_storage.storage.MinioMediaStorage'
+
+MINIO_STORAGE_ENDPOINT = os.getenv('S3_ENDPOINT')
+MINIO_STORAGE_ACCESS_KEY = os.getenv('S3_ACCESS_KEY')
+MINIO_STORAGE_SECRET_KEY = os.getenv('S3_SECRET_KEY')
+MINIO_STORAGE_USE_HTTPS = not DEBUG
+MINIO_STORAGE_MEDIA_BUCKET_NAME = 'media'
+MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
+MINIO_STORAGE_STATIC_BUCKET_NAME = 'static'
+MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True

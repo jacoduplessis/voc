@@ -1,0 +1,20 @@
+<div class="gallery" style="display: flex; flex-flow: row wrap">
+
+  {% for image in images %}
+
+    <a href="{{ image.image.url }}"
+       data-at-800="{{ image.image.thumbnail.800x800 }}"
+       data-at-1366="{{ image.image.thumbnail.1366x1366 }}"
+       data-at-1920="{{ image.image.thumbnail.1920x1920 }}"
+       data-caption="{{ image.caption }}">
+      <figure class="mx-1">
+        <img src="{{ image.image.crop.200x200 }}" alt="" class="img-thumbnail">
+        {% if image.caption %}
+          <figcaption>{{ image.caption }}</figcaption>
+        {% endif %}
+      </figure>
+    </a>
+  {% endfor %}
+
+</div>
+

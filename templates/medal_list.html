@@ -6,11 +6,15 @@
   <div class="container py-4">
     <h1>Medaljewenners | Medal Winners</h1>
     <hr>
+
+    <p>Die toekenning van die Silwer Medalje is aanvanklik voorgestel deur Helena Scheffler. Sy het die afbeelding van
+      die skip <em>Prins Willem</em> verskaf wat op die medalje verskyn.</p>
+
     {% for medal in medals %}
       <div class="mt-4">
-        <h3>{{ medal.name }}</h3>
+        <h3><a href="{% url 'medal_detail' medal.slug %}" class="text-dark">{{ medal.name }}</a></h3>
         <p><strong>{{ medal.date|date:"Y-m-d" }}</strong></p>
-        <p>{{ medal.short_description }}</p>
+        <p>{{ medal.short_description }} <a href="{% url 'medal_detail' medal.slug %}">Lees meer.</a></p>
       </div>
     {% endfor %}
 

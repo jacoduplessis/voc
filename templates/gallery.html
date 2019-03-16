@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class="container py-4">
+
+    <h1>Gallery: {{ name }}</h1>
+    <hr>
+    {% if images %}
+      {% include '_gallery.html' %}
+    {% else %}
+      <p>No images found.</p>
+    {% endif %}
+  </div>
+
+{% endblock %}
+
+{% block extra_script %}
+  <script>
+    baguetteBox.run('.gallery');
+  </script>
+{% endblock %}

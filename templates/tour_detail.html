@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+  <div class="container py-4">
+    <h1>{{ tour.name }}</h1>
+    <hr>
+    <p><strong>{{ tour.date|date:"Y-m-d" }}</strong></p>
+    <div>
+      {{ tour.content|linebreaks }}
+    </div>
+
+    {% if tour.images %}
+      {% include '_gallery.html' with images=tour.images %}
+    {% endif %}
+  
+  </div>
+{% endblock %}

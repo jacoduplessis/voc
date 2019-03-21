@@ -1,0 +1,30 @@
+{% extends 'admin/change_form.html' %}
+
+{% load static %}
+
+{% block after_field_sets %}
+
+  {{ block.super }}
+
+  {% if adminform.form.instance.pk %}
+
+    <script>window.object_label = '{{ opts.label_lower }}'</script>
+
+{#    {{ adminform.form.instance._meta.app_label }}#}
+{#    {{ adminform.form.instance._meta.model_name }}#}
+
+
+  <div class="form-row">
+    <div>
+      <label>Images:</label>
+      <div id="app"></div>
+    </div>
+
+  </div>
+
+  <script src="{% static 'content/vue.min.js' %}"></script>
+  <script src="{% static 'content/src/image.js' %}"></script>
+
+  {% endif %}
+
+{% endblock %}

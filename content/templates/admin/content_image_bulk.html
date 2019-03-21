@@ -1,0 +1,14 @@
+{% extends 'admin/base_site.html' %}
+
+{% load static %}
+
+{% block content %}
+
+  {% csrf_token %}
+  <div id="app"></div>
+
+  <script src="{% static 'content/vue.min.js' %}"></script>
+  <script src="{% static 'content/src/image.js' %}"></script>
+
+{% endblock content %}
+

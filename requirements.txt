@@ -1,10 +1,12 @@
-Django==2.1.4
+Django==2.1.7
 django-anymail==5.0
-django-ckeditor==5.6.1
 django-crispy-forms==1.7.2
 django-countries==5.3.2
 django-dotenv==1.4.2
 django-versatileimagefield==1.10
-markdown==3.0.1
+django-minio-storage==0.2.2
+dj-database-url==0.5.0
+markdown2==2.3.7
+psycopg2-binary
 gunicorn
 

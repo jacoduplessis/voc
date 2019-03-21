@@ -31,7 +31,7 @@ Website for the VOC Foundation of South Africa, running on Django.
 
 **local**
 
-rsync -r -zz -h --progress voc templates media core manage.py .env.example requirements.txt <server>:<location>
+rsync -r -zz -h --progress --cvs-exclude voc content templates media core manage.py .env.example requirements.txt <server>:<location>
 
 **server**
 

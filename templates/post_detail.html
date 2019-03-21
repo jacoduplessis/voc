@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load markdown %}
+
 {% block content %}
 
   <div class="container py-4">
@@ -11,8 +13,9 @@
 
       <p><strong>{{ post.date_published|date:"Y-m-d" }}</strong>
       {% if post.author %} | {{ post.author }}{% endif %}</p>
-      {{ post.content|safe }}
 
+
+      {{ post.content|markdown }}
 
       {% if post.images.all %}
 

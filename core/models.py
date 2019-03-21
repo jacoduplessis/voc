@@ -1,10 +1,10 @@
-from django.db import models
-from ckeditor.fields import RichTextField
-from versatileimagefield.fields import VersatileImageField
-from django_countries.fields import CountryField
 from django.contrib.postgres.fields import ArrayField
 from django.core.exceptions import ValidationError
+from django.db import models
 from django.utils.functional import cached_property
+from django_countries.fields import CountryField
+from versatileimagefield.fields import VersatileImageField
+
 
 class Document(models.Model):
     time_created = models.DateTimeField(auto_now_add=True)
@@ -19,23 +19,6 @@ class Document(models.Model):
 
     def __str__(self):
         return self.title
-
-
-# class Image(models.Model):
-#     image = VersatileImageField(
-#         verbose_name='Image', upload_to='images/', width_field='width',
-#         height_field='height')
-#     caption = models.TextField(blank=True)
-#     height = models.PositiveIntegerField(
-#         'Image Height',
-#         blank=True,
-#         null=True
-#     )
-#     width = models.PositiveIntegerField(
-#         'Image Width',
-#         blank=True,
-#         null=True
-#     )
 
 
 class Member(models.Model):
@@ -73,9 +56,7 @@ class Post(models.Model):
     author = models.CharField(max_length=200, blank=True)
     date_published = models.DateField()
     extract = models.TextField(max_length=500, blank=True)
-    content = RichTextField(blank=True)
-    # images = models.ManyToManyField(Image, related_name='posts')
-    documents = models.ManyToManyField(Document, related_name='posts')
+    content = models.TextField(blank=True, help_text='content in markdown format')
 
     def __str__(self):
         return self.title
@@ -141,7 +122,7 @@ class Project(models.Model):
     slug = models.SlugField()
     timeline = models.CharField(max_length=300, blank=True)
     short_description = models.CharField(max_length=500, blank=True)
-    content = RichTextField(blank=True)
+    content = models.TextField(blank=True, help_text='content in markdown format')
 
     def __str__(self):
         return self.title
@@ -169,8 +150,6 @@ class Tour(models.Model):
 
     class Meta:
         ordering = ['-date']
-
-
 
 
 class Speaker(models.Model):
@@ -204,7 +183,6 @@ class Medal(models.Model):
 
 
 def validate_tag(val: str):
-
     if val.lower() != val:
         raise ValidationError("Only lowercase letters allowed")
     if ' ' in val:
@@ -226,7 +204,9 @@ class Image(models.Model):
         blank=True,
         null=True
     )
-    tags = ArrayField(models.CharField(max_length=100, validators=[validate_tag]), blank=True, db_index=True, help_text='Comma-seperated list of tags, using only lowercase letters without whitespace')
+
+    tags = ArrayField(models.CharField(max_length=100, validators=[validate_tag]), blank=True, db_index=True,
+                      help_text='Comma-seperated list of tags, using only lowercase letters without whitespace')
     time_created = models.DateTimeField(auto_now_add=True, db_index=True)
 
     def __str__(self):

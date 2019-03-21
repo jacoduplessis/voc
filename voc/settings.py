@@ -47,12 +47,14 @@ INSTALLED_APPS = [
 
     'minio_storage',
 
+
     'crispy_forms',
-    'ckeditor',
     'versatileimagefield',
     'django_countries',
     'anymail',
     'core',
+
+    'content',
 ]
 
 MIDDLEWARE = [

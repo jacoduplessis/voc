@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 
+{% load markdown %}
+
 {% block content %}
 
 
   <div class="container py-4">
     <h1>{{ medal.name }}</h1>
     <hr>
-    <p><strong>{{ medal.date|date:"Y-m-d" }}</strong></p>
+    <p><strong>{{ medal.date|date:"Y" }}</strong></p>
     <div>
-      {{ medal.content|linebreaks }}
+      {{ medal.content|markdown }}
     </div>
 
     {% if medal.images %}

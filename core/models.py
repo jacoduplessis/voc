@@ -56,7 +56,7 @@ class Post(models.Model):
     author = models.CharField(max_length=200, blank=True)
     date_published = models.DateField()
     extract = models.TextField(max_length=500, blank=True)
-    content = models.TextField(blank=True, help_text='content in markdown format')
+    content = models.TextField(blank=True, help_text='Content in markdown format')
 
     def __str__(self):
         return self.title
@@ -122,14 +122,16 @@ class Project(models.Model):
     slug = models.SlugField()
     timeline = models.CharField(max_length=300, blank=True)
     short_description = models.CharField(max_length=500, blank=True)
-    content = models.TextField(blank=True, help_text='content in markdown format')
+    content = models.TextField(blank=True, help_text='Content in markdown format')
 
     def __str__(self):
         return self.title
 
     @cached_property
     def images(self):
-        return Image.objects.filter(tags_contains=[f'project_{self.slug}'])
+        from content.models import Image as ContentImage
+        tag = '_' + self._meta.label_lower + '.' + str(self.pk)
+        return ContentImage.objects.filter(tags__contains=[tag])
 
     class Meta:
         ordering = ['-timeline']
@@ -139,14 +141,16 @@ class Tour(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField()
     date = models.DateField(blank=True)
-    content = models.TextField(blank=True)
+    content = models.TextField(blank=True, help_text='Content in markdown format')
 
     def __str__(self):
         return self.title
 
     @cached_property
     def images(self):
-        return Image.objects.filter(tags_contains=[f'tour_{self.slug}'])
+        from content.models import Image as ContentImage
+        tag = '_' + self._meta.label_lower + '.' + str(self.pk)
+        return ContentImage.objects.filter(tags__contains=[tag])
 
     class Meta:
         ordering = ['-date']
@@ -179,35 +183,28 @@ class Medal(models.Model):
 
     @cached_property
     def images(self):
-        return Image.objects.filter(tags_contains=[f'medal_{self.slug}'])
+        from content.models import Image as ContentImage
+        tag = '_' + self._meta.label_lower + '.' + str(self.pk)
+        return ContentImage.objects.filter(tags__contains=[tag])
 
 
-def validate_tag(val: str):
-    if val.lower() != val:
-        raise ValidationError("Only lowercase letters allowed")
-    if ' ' in val:
-        raise ValidationError("No spaces allowed")
-
-
-class Image(models.Model):
-    image = VersatileImageField(
-        verbose_name='Image', upload_to='images/', width_field='width',
-        height_field='height')
-    caption = models.TextField(blank=True)
-    height = models.PositiveIntegerField(
-        'Image Height',
-        blank=True,
-        null=True
-    )
-    width = models.PositiveIntegerField(
-        'Image Width',
-        blank=True,
-        null=True
-    )
-
-    tags = ArrayField(models.CharField(max_length=100, validators=[validate_tag]), blank=True, db_index=True,
-                      help_text='Comma-seperated list of tags, using only lowercase letters without whitespace')
-    time_created = models.DateTimeField(auto_now_add=True, db_index=True)
+class Event(models.Model):
+    title = models.CharField(max_length=300)
+    date = models.DateField(blank=True, db_index=True)
+    date_to_be_finalised = models.BooleanField(default=False)
+    description = models.TextField(blank=True, help_text='Content in markdown format')
 
     def __str__(self):
-        return str(self.image)
+        return self.title
+
+
+class Newsletter(models.Model):
+    title = models.CharField(max_length=300)
+    date = models.DateField(db_index=True)
+    document = models.FileField(upload_to='newsletters/')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['-date']

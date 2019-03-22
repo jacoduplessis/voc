@@ -8,6 +8,8 @@ from .views import BulkImageAdminView, ImageAdminView
 
 def thumbnail_list_display(size):
     def image(obj):
+        if not obj.image:
+            return ''
         return mark_safe('<img src="{}" style="max-width:100%">'.format(obj.image.thumbnail[f'{size}x{size}'].url))
 
     return image
@@ -15,6 +17,8 @@ def thumbnail_list_display(size):
 
 def crop_list_display(size):
     def image(obj):
+        if not obj.image:
+            return ''
         return mark_safe('<img src="{}" style="max-width:100%">'.format(obj.image.crop[f'{size}x{size}'].url))
 
     return image

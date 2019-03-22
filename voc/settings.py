@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
 
-    'minio_storage',
+    #'minio_storage',
 
 
     'crispy_forms',
@@ -86,11 +86,6 @@ TEMPLATES = [
             ],
         },
     },
-    {
-        'BACKEND': 'django.template.backends.jinja2.Jinja2',
-        'APP_DIRS': True,
-        'NAME': 'jinja'
-    }
 ]
 
 WSGI_APPLICATION = 'voc.wsgi.application'
@@ -132,6 +127,7 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -195,7 +191,7 @@ else:
 
 DEFAULT_FROM_EMAIL = "Stigting VOC <web@voc-kaap.org>"
 
-DEFAULT_FILE_STORAGE = 'minio_storage.storage.MinioMediaStorage'
+# DEFAULT_FILE_STORAGE = 'minio_storage.storage.MinioMediaStorage'
 
 MINIO_STORAGE_ENDPOINT = os.getenv('S3_ENDPOINT')
 MINIO_STORAGE_ACCESS_KEY = os.getenv('S3_ACCESS_KEY')

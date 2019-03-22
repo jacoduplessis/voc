@@ -8,7 +8,7 @@
 
   {% if adminform.form.instance.pk %}
 
-    <script>window.object_label = '{{ opts.label_lower }}'</script>
+    <script>window.object_label = '{{ opts.label_lower }}.{{ adminform.form.instance.pk }}'</script>
 
 {#    {{ adminform.form.instance._meta.app_label }}#}
 {#    {{ adminform.form.instance._meta.model_name }}#}

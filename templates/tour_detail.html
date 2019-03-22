@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 
+{% load markdown %}
+
 {% block content %}
 
 
   <div class="container py-4">
-    <h1>{{ tour.name }}</h1>
+    <h1>{{ tour.title }}</h1>
     <hr>
     <p><strong>{{ tour.date|date:"Y-m-d" }}</strong></p>
     <div>
-      {{ tour.content|linebreaks }}
+      {{ tour.content|markdown }}
     </div>
 
     {% if tour.images %}

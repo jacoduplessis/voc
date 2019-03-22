@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load markdown static %}
+
 {% block content %}
 
 
@@ -7,11 +9,24 @@
     <h1>Toere | Tours</h1>
     <hr>
     {% for tour in tours %}
-      <div class="mt-4">
-        <h3>{{ tour.title }}</h3>
-        <p><strong>{{ tour.date|date:"Y-m-d" }}</strong></p>
-        <div>{{ tour.content|linebreaksbr }}</div>
+
+      <div class="media mt-4">
+        <a href="{% url 'tour_detail' tour.slug %}">
+          {% if tour.images %}
+            <img src="{{ tour.images.first.image.crop.200x200.url }}" class="img img-thumbnail mr-3">
+          {% else %}
+            <img src="{% static 'img/voc_logo_web.png' %}" style="max-width: 210px" class="img img-thumbnail mr-3">
+          {% endif %}
+        </a>
+        <div class="media-body">
+          <h3><a href="{% url 'tour_detail' tour.slug %}" class="text-dark">{{ tour.title }}</a></h3>
+          <p><strong>{{ tour.date|date:"Y-m-d" }}</strong></p>
+        </div>
+
       </div>
+
+
+
     {% endfor %}
 
   </div>

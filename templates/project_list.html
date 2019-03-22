@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
 
 
@@ -7,12 +9,22 @@
     <h1>Projekte | Projects</h1>
     <hr>
     {% for project in projects %}
-      <div class="mt-4">
-        <h3><a href="{% url 'project_detail' project.slug %}" class="text-dark">{{ project.title }}</a></h3>
-        <p><strong>{{ project.timeline }}</strong></p>
-        <p>{{ project.short_description }} {% if project.content %}
-          <a href="{% url 'project_detail' project.slug %}">Lees meer.</a>{% endif %}</p>
+
+      <div class="media mt-4">
+
+        {% if project.images %}
+          <img src="{{ project.images.first.image.crop.200x200.url }}" class="img img-thumbnail mr-3">
+        {% else %}
+          <img src="{% static 'img/voc_logo_web.png' %}" style="max-width: 210px" class="img img-thumbnail mr-3">
+        {% endif %}
+        <div class="media-body">
+          <h3><a href="{% url 'project_detail' project.slug %}" class="text-dark">{{ project.title }}</a></h3>
+          <p><strong>{{ project.timeline }}</strong></p>
+          <p>{{ project.short_description }} {% if project.content %}
+            <a href="{% url 'project_detail' project.slug %}">Lees meer.</a>{% endif %}</p>
+        </div>
       </div>
+
     {% endfor %}
 
   </div>

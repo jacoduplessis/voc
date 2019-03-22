@@ -1,15 +1,31 @@
 {% extends 'base.html' %}
 
+{% load markdown %}
+
 {% block content %}
 
 
   <div class="container py-4">
-  <h1>Gebeure | Events</h1>
-  <hr>
+    <h1>Kalender | Calendar</h1>
+    <hr>
 
-  <p>Eersdaags beskikbaar. Coming soon.</p>
+    {% for event in events %}
 
-  {% include '_logo_large.html' %}
+      <div class="card my-3">
+        <div class="card-header">
+          <strong>{% if event.date_to_be_finalised %}{{ event.date|date:'Y' }} TBA{% else %}{{ event.date }}{% endif %}</strong>
+        </div>
+        <div class="card-body">
+          <h2>{{ event.title }}</h2>
+          <div>
+            {{ event.description|markdown }}
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
+
+    {% include '_logo_large.html' %}
 
   </div>
 {% endblock %}

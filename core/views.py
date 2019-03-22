@@ -1,13 +1,14 @@
-from django.urls import reverse
-from django.views import generic
-from django.shortcuts import render
-from django.http.response import JsonResponse
-
-from .models import Member, Research, CommitteeMember, Post, Project, Medal, Tour, Speaker, Image
-from django.core.mail import send_mail
-from django_countries.fields import Country
 import logging
-from .forms import ImageForm
+from datetime import timedelta
+
+from django.core.mail import send_mail
+from django.urls import reverse
+from django.utils.timezone import now
+from django.views import generic
+from django_countries.fields import Country
+
+from content.models import Image
+from .models import Member, Research, CommitteeMember, Post, Project, Medal, Tour, Speaker, Event, Newsletter
 
 logger = logging.getLogger(__name__)
 
@@ -34,9 +35,22 @@ class CopyrightPrivacyView(generic.TemplateView):
 class ArchiveView(generic.TemplateView):
     template_name = 'archives.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['newsletters'] = Newsletter.objects.all()
+        return context
 
-class EventListView(generic.TemplateView):
+
+class EventListView(generic.ListView):
     template_name = 'event_list.html'
+    model = Event
+    context_object_name = 'events'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        week_ago = now() - timedelta(days=7)
+        qs = qs.filter(date__gte=week_ago).order_by('date')
+        return qs
 
 
 class ApplicationView(generic.CreateView):
@@ -183,23 +197,6 @@ class TourDetailView(generic.DetailView):
     template_name = 'tour_detail.html'
 
 
-class JinjaTest(generic.TemplateView):
-    template_name = 'core/test.html'
-    template_engine = 'jinja'
-
-    def get_context_data(self, **kwargs):
-        from .trello import TBoard
-        from pathlib import Path
-        import json
-
-        context = super().get_context_data(**kwargs)
-
-        data_str = Path('/home/jaco/Projects/voc/DPZfm02g.json').read_text()
-        data = json.loads(data_str)
-        context['board'] = TBoard(data=data)
-        return context
-
-
 class GalleryView(generic.TemplateView):
     template_name = 'gallery.html'
 
@@ -213,22 +210,3 @@ class GalleryView(generic.TemplateView):
         context['name'] = name
         context['images'] = Image.objects.filter(tags__contains=[slug])
         return context
-
-
-class BulkImageAdminView(generic.View):
-
-    def get(self, request):
-        return render(request, 'admin/image_bulk.html')
-
-    def post(self, request):
-        form = ImageForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            obj = form.save()
-            return JsonResponse({'ok': True, 'id': obj.id})
-
-        else:
-            return JsonResponse({
-                'ok': False,
-                'errors': form.errors
-            })

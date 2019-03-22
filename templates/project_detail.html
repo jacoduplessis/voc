@@ -1,18 +1,24 @@
 {% extends 'base.html' %}
 
+{% load markdown %}
+
 {% block content %}
 
 
   <div class="container py-4">
   <h1>{{ project.title }}</h1>
   <hr>
-
+  <p><strong>{{project.timeline}}</strong></p>
   <div>
-    {{ project.markdown }}
+    {{ project.content|markdown }}
   </div>
 
   {% if not project.content %}
     <p>{{ project.short_description }}</p>
   {% endif %}
+
+   {% if project.images %}
+      {% include '_gallery.html' with images=project.images%}
+    {% endif %}
   </div>
 {% endblock %}

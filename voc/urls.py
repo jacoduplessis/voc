@@ -47,6 +47,7 @@ urlpatterns = [
     path('en/', views.IndexView.as_view(lang='en'), name='index_en'),
     path('nl/', views.IndexView.as_view(lang='nl'), name='index_nl'),
     path('gallery/<slug>/', views.GalleryView.as_view(), name='gallery'),
+    path('cape-calendar/', views.CapeCalendarView.as_view(), name='cape_calendar'),
     path('', views.IndexView.as_view(lang='af'), name='index_af'),
 ]
 

@@ -6,9 +6,10 @@ from django.urls import reverse
 from django.utils.timezone import now
 from django.views import generic
 from django_countries.fields import Country
-
+from markdown import markdown
 from content.models import Image
 from .models import Member, Research, CommitteeMember, Post, Project, Medal, Tour, Speaker, Event, Newsletter
+from .calendar import CAPE_CALENDAR
 
 logger = logging.getLogger(__name__)
 
@@ -144,6 +145,7 @@ class PostListView(generic.ListView):
     model = Post
     template_name = 'post_list.html'
     context_object_name = 'posts'
+    ordering = '-date_published'
 
 
 class PostDetailView(generic.DetailView):
@@ -209,4 +211,13 @@ class GalleryView(generic.TemplateView):
 
         context['name'] = name
         context['images'] = Image.objects.filter(tags__contains=[slug])
+        return context
+
+
+class CapeCalendarView(generic.TemplateView):
+    template_name = 'cape_calendar.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['html_content'] = markdown(CAPE_CALENDAR)
         return context

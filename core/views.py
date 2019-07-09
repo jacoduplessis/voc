@@ -8,7 +8,7 @@ from django.views import generic
 from django_countries.fields import Country
 from markdown import markdown
 from content.models import Image
-from .models import Member, Research, CommitteeMember, Post, Project, Medal, Tour, Speaker, Event, Newsletter
+from .models import Member, Research, CommitteeMember, Post, Project, Medal, Tour, Speaker, Event, Newsletter, Document
 from .calendar import CAPE_CALENDAR
 
 logger = logging.getLogger(__name__)
@@ -221,3 +221,18 @@ class CapeCalendarView(generic.TemplateView):
         context = super().get_context_data(**kwargs)
         context['html_content'] = markdown(CAPE_CALENDAR)
         return context
+
+class DocumentListView(generic.ListView):
+
+    template_name = 'document_list.html'
+    model = Document
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(public=True)
+
+class DocumentDetailView(generic.DetailView):
+
+    template_name = 'document_detail.html'
+    model = Document
+

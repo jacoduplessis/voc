@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+  <div class="container py-4">
+    <h1>Dokumente | Documents</h1>
+    <hr>
+    {% for doc in document_list %}
+
+      <h3>
+{#        <a href="{% url 'document_detailt' doc.pk %}" class="text-dark">{{ doc.title }}</a>#}
+        {{ doc.title }}
+      </h3>
+      <p>{{ doc.author }}</p>
+      <p><a href="{{ doc.link }}">Laai af | Download</a></p>
+
+    {% endfor %}
+
+  </div>
+{% endblock %}

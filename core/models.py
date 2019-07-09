@@ -16,6 +16,7 @@ class Document(models.Model):
     link = models.URLField(blank=True, help_text='Link to document if external file')
     description = models.TextField(blank=True, help_text='Publicly shown text to describe contents of the document')
     notes = models.TextField(blank=True, help_text='Private notes not shown publicly')
+    public = models.BooleanField(default=False, help_text='True if it should be displayed on documents page')
 
     def __str__(self):
         return self.title

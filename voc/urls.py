@@ -43,6 +43,8 @@ urlpatterns = [
     path('tours/<slug>/', views.TourDetailView.as_view(), name='tour_detail'),
     path('medals/', views.MedalListView.as_view(), name='medal_list'),
     path('medals/<slug>/', views.MedalDetailView.as_view(), name='medal_detail'),
+    path('documents/', views.DocumentListView.as_view(), name='document_list'),
+    path('documents/<int:pk>/', views.DocumentDetailView.as_view(), name='document_detail'),
     path('map/', views.MapView.as_view(), name='map'),
     path('en/', views.IndexView.as_view(lang='en'), name='index_en'),
     path('nl/', views.IndexView.as_view(lang='nl'), name='index_nl'),

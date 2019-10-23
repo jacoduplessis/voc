@@ -1,5 +1,5 @@
 Django==2.2.4
-django-anymail==6.1.0
+django-anymail==7.0.0
 django-crispy-forms==1.8.0
 django-countries==5.4
 django-dotenv==1.4.2

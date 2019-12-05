@@ -1,7 +1,7 @@
 from django.utils.html import mark_safe
 from django import template
 from django.template.defaultfilters import stringfilter
-from markdown2 import markdown as to_markdown
+from markdown import markdown as to_markdown
 
 register = template.Library()
 
@@ -10,4 +10,3 @@ register = template.Library()
 @stringfilter
 def markdown(val):
     return mark_safe(to_markdown(val))
-

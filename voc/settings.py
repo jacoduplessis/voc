@@ -30,7 +30,6 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
 ] if DEBUG else [
     '.voc-kaap.org',
-    '.svoc.org.za',
 ]
 
 # Application definition

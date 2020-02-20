@@ -8,10 +8,7 @@
        data-at-1920="{{ image.image.thumbnail.1920x1920 }}"
        data-caption="{{ image.caption }}">
       <figure class="mx-1">
-        <img src="{{ image.image.crop.200x200 }}" alt="" class="img-thumbnail">
-        {% if image.caption %}
-          <figcaption>{{ image.caption }}</figcaption>
-        {% endif %}
+        <img src="{{ image.image.crop.200x200 }}" alt="{{ image.caption }}" title="{{ image.caption }}" class="img-thumbnail">
       </figure>
     </a>
   {% endfor %}

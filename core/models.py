@@ -1,9 +1,29 @@
-from django.contrib.postgres.fields import ArrayField
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.functional import cached_property
 from django_countries.fields import CountryField
 from versatileimagefield.fields import VersatileImageField
+
+
+class ImagesPropMixin:
+
+    @cached_property
+    def images(self):
+        from content.models import Image as ContentImage
+        tag = '_' + self._meta.label_lower + '.' + str(self.pk)
+        return ContentImage.objects.filter(tags__contains=[tag])
+
+    @cached_property
+    def featured_image(self):
+        if len(self.images) == 0:
+            return None
+        tag = '_' + self._meta.label_lower + '.' + str(self.pk) + '_featured'
+        for i in self.images:
+            for t in i.tags:
+                if t == tag:
+                    return i
+        return self.images[0]
+
+
 
 
 class Document(models.Model):
@@ -116,7 +136,7 @@ class CommitteeMember(models.Model):
         return self.name
 
 
-class Project(models.Model):
+class Project(ImagesPropMixin, models.Model):
     time_created = models.DateTimeField(auto_now_add=True)
     time_modified = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=300)
@@ -128,17 +148,11 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
-    @cached_property
-    def images(self):
-        from content.models import Image as ContentImage
-        tag = '_' + self._meta.label_lower + '.' + str(self.pk)
-        return ContentImage.objects.filter(tags__contains=[tag])
-
     class Meta:
         ordering = ['-timeline']
 
 
-class Tour(models.Model):
+class Tour(ImagesPropMixin, models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField()
     date = models.DateField(blank=True)
@@ -146,15 +160,6 @@ class Tour(models.Model):
 
     def __str__(self):
         return self.title
-
-    @cached_property
-    def images(self):
-        from content.models import Image as ContentImage
-        tag = '_' + self._meta.label_lower + '.' + str(self.pk)
-        return ContentImage.objects.filter(tags__contains=[tag])
-
-    class Meta:
-        ordering = ['-date']
 
 
 class Speaker(models.Model):
@@ -172,7 +177,7 @@ class Speaker(models.Model):
         ordering = ['-date']
 
 
-class Medal(models.Model):
+class Medal(ImagesPropMixin, models.Model):
     name = models.CharField(max_length=300)
     slug = models.SlugField()
     date = models.DateField(blank=True)
@@ -181,12 +186,6 @@ class Medal(models.Model):
 
     def __str__(self):
         return self.name
-
-    @cached_property
-    def images(self):
-        from content.models import Image as ContentImage
-        tag = '_' + self._meta.label_lower + '.' + str(self.pk)
-        return ContentImage.objects.filter(tags__contains=[tag])
 
 
 class Event(models.Model):

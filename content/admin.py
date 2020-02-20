@@ -48,9 +48,14 @@ class ImageAdmin(admin.ModelAdmin):
         'image',
         'caption',
         'time_created',
+        'tags',
     ]
     readonly_fields = [
         thumbnail_list_display(800)
+    ]
+    list_editable = [
+        'caption',
+        'tags',
     ]
 
     def get_urls(self):

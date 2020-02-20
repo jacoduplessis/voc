@@ -29,7 +29,8 @@ const app = new Vue({
     this.url = window.location.href.replace('/change/', '/images/')
 
     if (window.object_label) {
-      this.object_tag = '_' + window.object_label
+
+      this.object_tag = window.object_label ? '_' + window.object_label : ''
       fetch(this.url + '?tag=' + encodeURIComponent(this.object_tag), {
         credentials: "include",
       }).then(r => r.json()).then(data => {

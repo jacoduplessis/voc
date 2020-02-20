@@ -12,8 +12,8 @@
 
       <div class="media mt-4">
 
-        {% if project.images %}
-          <img src="{{ project.images.first.image.crop.200x200.url }}" class="img img-thumbnail mr-3">
+        {% if project.featured_image %}
+          <img src="{{ project.featured_image.image.crop.200x200.url }}" class="img img-thumbnail mr-3">
         {% else %}
           <img src="{% static 'img/voc_logo_web.png' %}" style="max-width: 210px" class="img img-thumbnail mr-3">
         {% endif %}

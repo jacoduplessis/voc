@@ -13,8 +13,8 @@
     {% for medal in medals %}
       <div class="media mt-4">
 
-        {% if medal.images %}
-          <img src="{{ medal.images.first.image.crop.200x200.url }}" class="img img-thumbnail mr-3">
+        {% if medal.featured_image %}
+          <img src="{{ medal.featured_image.image.crop.200x200.url }}" class="img img-thumbnail mr-3">
         {% endif %}
         <div class="media-body">
           <h3><a href="{% url 'medal_detail' medal.slug %}" class="text-dark">{{ medal.name }}</a></h3>

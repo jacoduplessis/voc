@@ -12,8 +12,8 @@
 
       <div class="media mt-4">
         <a href="{% url 'tour_detail' tour.slug %}">
-          {% if tour.images %}
-            <img src="{{ tour.images.first.image.crop.200x200.url }}" class="img img-thumbnail mr-3">
+          {% if tour.featured_image %}
+            <img src="{{ tour.featured_image.image.crop.200x200.url }}" class="img img-thumbnail mr-3">
           {% else %}
             <img src="{% static 'img/voc_logo_web.png' %}" style="max-width: 210px" class="img img-thumbnail mr-3">
           {% endif %}
@@ -24,8 +24,6 @@
         </div>
 
       </div>
-
-
 
     {% endfor %}
 
